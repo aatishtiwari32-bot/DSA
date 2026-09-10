@@ -5,28 +5,33 @@ public:
         if (n <= 2)
             return 0;
 
-        vector<bool> isPrime(n, true);
+        vector<char> isPrime(n, 1);
 
-        isPrime[0] = false;
-        isPrime[1] = false;
+        isPrime[0] = 0;
+        isPrime[1] = 0;
 
-        int count = n - 2;   // 2 se n-1 tak sab initially prime
-
-        for (int i = 2; i * i < n; i++)
+        // Sirf odd numbers ko sieve karo
+        for (int i = 3; 1LL * i * i < n; i += 2)
         {
             if (isPrime[i])
             {
-                for (int j = i * i; j < n; j += i)
+                // i*i se start, sirf odd multiples
+                for (long long j = 1LL * i * i; j < n; j += 2LL * i)
                 {
-                    if (isPrime[j])
-                    {
-                        isPrime[j] = false;
-                        count--;
-                    }
+                    isPrime[j] = 0;
                 }
             }
         }
 
+        // 2 khud prime hai
+        int count = 1;
+
+        // Sirf odd numbers count karo
+        for (int i = 3; i < n; i += 2)
+        {
+            if (isPrime[i])
+                count++;
+        }
         return count;
     }
 };
