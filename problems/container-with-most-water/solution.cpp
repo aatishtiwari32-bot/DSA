@@ -5,19 +5,12 @@ public:
         int end = height.size() - 1;
         int max_water = 0;
         while (start < end) {
-            int waterLevel = min(height[start], height[end]) * (end - start);
-            if (waterLevel > max_water) {
-                max_water = waterLevel;
-            }
-            if (height[start] > height[end]) {
+            int water = min(height[start], height[end]) * (end - start);
+            max_water = max(max_water, water);
+            if (height[start] < height[end])
+                start++;
+            else
                 end--;
-            }
-            else if (height[start] < height[end]) {
-                start++;
-            }
-            else {
-                start++;
-            }
         }
         return max_water;
     }
